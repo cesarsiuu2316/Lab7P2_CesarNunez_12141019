@@ -18,8 +18,13 @@ public class Equipo {
         this.diferenciaGoles = diferenciaGoles;
     }
 
+    public Equipo(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Equipo() {
     }
+    
 
     public String getNombre() {
         return nombre;

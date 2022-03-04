@@ -56,6 +56,7 @@ public class AdministrarEquipo {
                 bw.write(equipo.getGolesContra() + ",");
                 bw.write(equipo.getDiferenciaGoles() + ",");
                 bw.write(equipo.getPts() + ",");
+                bw.newLine();
             }            
             bw.flush();            
         }catch(Exception e){

@@ -5,15 +5,13 @@
  */
 package lab7p2_cesarnunez_12141019;
 
-/**
- *
- * @author cesar
- */
+import javax.swing.JOptionPane;
+
+
 public class Main extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main
-     */
+    private AdministrarEquipo ae = new AdministrarEquipo("./equipos.txt");
+    
     public Main() {
         initComponents();
     }
@@ -27,26 +25,76 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jm_equipo = new javax.swing.JMenu();
+        jmi_crear = new javax.swing.JMenuItem();
+        jmi_modificar = new javax.swing.JMenuItem();
+        jmi_eliminar = new javax.swing.JMenuItem();
+        jmi_cargar = new javax.swing.JMenuItem();
+        jm_partidos = new javax.swing.JMenu();
+        jmi_simular = new javax.swing.JMenuItem();
+        jmi_tablaPosiciones = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 0, 255));
+        jLabel2.setText("Torneo Local");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, -1));
 
         jLabel1.setBackground(new java.awt.Color(153, 204, 255));
         jLabel1.setOpaque(true);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, 0, 440, 248));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
-        );
+        jm_equipo.setText("Equipo");
+
+        jmi_crear.setText("Crear");
+        jmi_crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_crearActionPerformed(evt);
+            }
+        });
+        jm_equipo.add(jmi_crear);
+
+        jmi_modificar.setText("Modificar");
+        jm_equipo.add(jmi_modificar);
+
+        jmi_eliminar.setText("Eliminar");
+        jm_equipo.add(jmi_eliminar);
+
+        jmi_cargar.setText("Cargar Archivo");
+        jm_equipo.add(jmi_cargar);
+
+        jMenuBar1.add(jm_equipo);
+
+        jm_partidos.setText("Partidos");
+
+        jmi_simular.setText("Simular");
+        jm_partidos.add(jmi_simular);
+
+        jmi_tablaPosiciones.setText("jMenuItem1");
+        jm_partidos.add(jmi_tablaPosiciones);
+
+        jMenuBar1.add(jm_partidos);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmi_crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_crearActionPerformed
+        String nombre = JOptionPane.showInputDialog("Nombre del equipo: ");
+        try{
+            ae.cargarArchivo();
+            ae.setEquipo(new Equipo(nombre));
+            ae.escribirArchivo();            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error, no se pudo crear el equipo!");
+        }        
+    }//GEN-LAST:event_jmi_crearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -85,5 +133,15 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jm_equipo;
+    private javax.swing.JMenu jm_partidos;
+    private javax.swing.JMenuItem jmi_cargar;
+    private javax.swing.JMenuItem jmi_crear;
+    private javax.swing.JMenuItem jmi_eliminar;
+    private javax.swing.JMenuItem jmi_modificar;
+    private javax.swing.JMenuItem jmi_simular;
+    private javax.swing.JMenuItem jmi_tablaPosiciones;
     // End of variables declaration//GEN-END:variables
 }
