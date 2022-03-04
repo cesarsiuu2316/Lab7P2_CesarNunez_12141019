@@ -9,11 +9,13 @@ import java.io.File;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import java.util.Random;
 
 
 public class Main extends javax.swing.JFrame {
 
     private AdministrarEquipo ae = new AdministrarEquipo();
+    private Random rand = new Random();
     
     public Main() {
         initComponents();
@@ -198,27 +200,68 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_cargarActionPerformed
 
     private void jb_simularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_simularMouseClicked
-
         try{
             if(jcb_equipo1.getSelectedIndex() >= 0 && jcb_equipo2.getSelectedIndex() >= 0){
-                
+                if(jcb_equipo1.getSelectedIndex() != jcb_equipo2.getSelectedIndex()){
+                    int g1 = rand.nextInt(6);
+                    int g2 = rand.nextInt(6);
+                    jl_golesEquipo1.setText(String.valueOf(g1));
+                    jl_golesEquipo2.setText(String.valueOf(g2));
+                    Equipo e1 = ae.getEquipos().get(jcb_equipo1.getSelectedIndex());
+                    Equipo e2 = ae.getEquipos().get(jcb_equipo2.getSelectedIndex());
+                    e1.setpJugados(e1.getpJugados() + 1);
+                    e2.setpJugados(e2.getpJugados() + 1);
+                    if(g1 > g2){
+                        e1.setpGanados(e1.getpGanados() + 1);
+                        e2.setpPerdidos(e2.getpPerdidos() + 1);
+                        e1.setPts(e1.getPts() + 3);
+                    }else if(g1 < g2){
+                        e2.setpGanados(e2.getpGanados() + 1);
+                        e1.setpPerdidos(e1.getpPerdidos() + 1);
+                        e2.setPts(e2.getPts() + 3);
+                    }else{
+                        e1.setpEmpatados(e1.getpEmpatados() + 1);
+                        e2.setpEmpatados(e2.getpEmpatados() + 1);
+                        e1.setPts(e1.getPts() + 1);
+                        e2.setPts(e2.getPts() + 1);
+                    }
+                    
+                    e1.setGolesFavor(e1.getGolesFavor() + g1);
+                    e2.setGolesFavor(e2.getGolesFavor() + g2);
+                    
+                    e1.setGolesContra(e1.getGolesContra() + g2);
+                    e2.setGolesContra(e2.getGolesContra() + g1);
+                    
+                    e1.setDiferenciaGoles(e1.getDiferenciaGoles() + (g1 - g2));
+                    e2.setDiferenciaGoles(e2.getDiferenciaGoles() + (g1 - g2));                                        
+                }else{
+                    JOptionPane.showMessageDialog(null, "Error, no se puede simular un partido entre el mismo equipo!");
+                }
             }
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error, no se pudo simular un resultado!");
+            JOptionPane.showMessageDialog(null, "Error, no se pudo simular el partido!");
         }
         
         
     }//GEN-LAST:event_jb_simularMouseClicked
 
     private void jmi_simularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_simularActionPerformed
-        DefaultComboBoxModel m = (DefaultComboBoxModel) jcb_equipo1.getModel();
-        for (Equipo equipo : ae.getEquipos()) {
-            m.addElement(equipo);
+        try{
+            ae.cargarArchivo();
+            DefaultComboBoxModel m = (DefaultComboBoxModel) jcb_equipo1.getModel();
+            DefaultComboBoxModel m1 = (DefaultComboBoxModel) jcb_equipo2.getModel();
+            for (Equipo equipo : ae.getEquipos()) {
+                m.addElement(equipo);            
+                m1.addElement(equipo);            
+            }
+            jcb_equipo1.setModel(m);
+            jcb_equipo2.setModel(m1);
+            jd_simulacion.pack();
+            jd_simulacion.setVisible(true);
+        }catch(Exception e){
+            
         }
-        jcb_equipo1.setModel(m);
-        jcb_equipo2.setModel(m);
-        jd_simulacion.pack();
-        jd_simulacion.setVisible(true);
+        
     }//GEN-LAST:event_jmi_simularActionPerformed
     
     /**
