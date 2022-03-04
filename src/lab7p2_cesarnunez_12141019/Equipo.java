@@ -100,7 +100,7 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return nombre + "," + pGanados + "," + pEmpatados + "," + pPerdidos + "," + golesFavor + "," + golesContra + "," + diferenciaGoles + "," + pts + "," + pJugados;
+        return nombre;
     }
 
 

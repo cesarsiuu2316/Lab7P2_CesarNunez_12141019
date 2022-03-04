@@ -285,7 +285,9 @@ public class Main extends javax.swing.JFrame {
                     e2.setGolesContra(e2.getGolesContra() + g1);
                     
                     e1.setDiferenciaGoles(e1.getDiferenciaGoles() + (g1 - g2));
-                    e2.setDiferenciaGoles(e2.getDiferenciaGoles() + (g1 - g2));                                        
+                    e2.setDiferenciaGoles(e2.getDiferenciaGoles() + (g1 - g2)); 
+                    
+                    ae.escribirArchivo();
                 }else{
                     JOptionPane.showMessageDialog(null, "Error, no se puede simular un partido entre el mismo equipo!");
                 }
@@ -320,7 +322,10 @@ public class Main extends javax.swing.JFrame {
             Object[] row = {
                 e.getNombre(), e.getpJugados(), e.getpGanados(), e.getpEmpatados(), e.getpPerdidos(), e.getGolesFavor(), e.getGolesContra(), e.getDiferenciaGoles(), e.getPts()
             };
-        }        
+            m.addRow(row);
+        } 
+        jt_posiciones.setModel(m);
+        
         jf_tabla.pack();        
         jf_tabla.setVisible(true);
         jf_tabla.setLocationRelativeTo(this);
