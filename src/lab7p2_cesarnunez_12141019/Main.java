@@ -10,6 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import java.util.Random;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Main extends javax.swing.JFrame {
@@ -43,7 +44,9 @@ public class Main extends javax.swing.JFrame {
         jb_simular = new javax.swing.JButton();
         jl_golesEquipo1 = new javax.swing.JLabel();
         jl_golesEquipo2 = new javax.swing.JLabel();
-        jFrame1 = new javax.swing.JFrame();
+        jf_tabla = new javax.swing.JFrame();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jt_posiciones = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -117,15 +120,31 @@ public class Main extends javax.swing.JFrame {
                     .addContainerGap(144, Short.MAX_VALUE)))
         );
 
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        jt_posiciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Equipo", "PJ", "PG", "PE", "PP", "GF", "GC", "DG", "Puntos"
+            }
+        ));
+        jScrollPane1.setViewportView(jt_posiciones);
+
+        javax.swing.GroupLayout jf_tablaLayout = new javax.swing.GroupLayout(jf_tabla.getContentPane());
+        jf_tabla.getContentPane().setLayout(jf_tablaLayout);
+        jf_tablaLayout.setHorizontalGroup(
+            jf_tablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_tablaLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jf_tablaLayout.setVerticalGroup(
+            jf_tablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_tablaLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -295,7 +314,16 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_simularActionPerformed
 
     private void jmi_tablaPosicionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_tablaPosicionesActionPerformed
-        
+        ae.cargarArchivo();
+        DefaultTableModel m = (DefaultTableModel) jt_posiciones.getModel();
+        for (Equipo e : ae.getEquipos()) {
+            Object[] row = {
+                e.getNombre(), e.getpJugados(), e.getpGanados(), e.getpEmpatados(), e.getpPerdidos(), e.getGolesFavor(), e.getGolesContra(), e.getDiferenciaGoles(), e.getPts()
+            };
+        }        
+        jf_tabla.pack();        
+        jf_tabla.setVisible(true);
+        jf_tabla.setLocationRelativeTo(this);
     }//GEN-LAST:event_jmi_tablaPosicionesActionPerformed
     
     /**
@@ -334,15 +362,16 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_simular;
     private javax.swing.JComboBox<String> jcb_equipo1;
     private javax.swing.JComboBox<String> jcb_equipo2;
     private javax.swing.JDialog jd_simulacion;
+    private javax.swing.JFrame jf_tabla;
     private javax.swing.JLabel jl_golesEquipo1;
     private javax.swing.JLabel jl_golesEquipo2;
     private javax.swing.JMenu jm_equipo;
@@ -353,5 +382,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi_modificar;
     private javax.swing.JMenuItem jmi_simular;
     private javax.swing.JMenuItem jmi_tablaPosiciones;
+    private javax.swing.JTable jt_posiciones;
     // End of variables declaration//GEN-END:variables
 }
