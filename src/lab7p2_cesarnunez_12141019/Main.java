@@ -43,6 +43,7 @@ public class Main extends javax.swing.JFrame {
         jb_simular = new javax.swing.JButton();
         jl_golesEquipo1 = new javax.swing.JLabel();
         jl_golesEquipo2 = new javax.swing.JLabel();
+        jFrame1 = new javax.swing.JFrame();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -116,6 +117,17 @@ public class Main extends javax.swing.JFrame {
                     .addContainerGap(144, Short.MAX_VALUE)))
         );
 
+        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
+        jFrame1.getContentPane().setLayout(jFrame1Layout);
+        jFrame1Layout.setHorizontalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jFrame1Layout.setVerticalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -164,7 +176,12 @@ public class Main extends javax.swing.JFrame {
         });
         jm_partidos.add(jmi_simular);
 
-        jmi_tablaPosiciones.setText("jMenuItem1");
+        jmi_tablaPosiciones.setText("Tabla de posiciones");
+        jmi_tablaPosiciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_tablaPosicionesActionPerformed(evt);
+            }
+        });
         jm_partidos.add(jmi_tablaPosiciones);
 
         jMenuBar1.add(jm_partidos);
@@ -176,6 +193,18 @@ public class Main extends javax.swing.JFrame {
 
     private void jmi_crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_crearActionPerformed
         String nombre = JOptionPane.showInputDialog("Nombre del equipo: ");
+        boolean band = false;
+        while(band == false){
+            band = true;
+            for (int i = 0; i < ae.getEquipos().size(); i++) {
+                if(ae.getEquipos().get(i).getNombre().equalsIgnoreCase(nombre)){
+                    nombre = JOptionPane.showInputDialog("El nombre ya existe, ingrese otro: ");
+                    i = ae.getEquipos().size();   
+                    band = false;
+                }
+            }
+        }
+        
         try{
             ae.cargarArchivo();
             ae.setEquipo(new Equipo(nombre));
@@ -200,6 +229,10 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_cargarActionPerformed
 
     private void jb_simularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_simularMouseClicked
+        simularPartidos();
+    }//GEN-LAST:event_jb_simularMouseClicked
+
+    private void simularPartidos(){
         try{
             if(jcb_equipo1.getSelectedIndex() >= 0 && jcb_equipo2.getSelectedIndex() >= 0){
                 if(jcb_equipo1.getSelectedIndex() != jcb_equipo2.getSelectedIndex()){
@@ -241,10 +274,8 @@ public class Main extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error, no se pudo simular el partido!");
         }
-        
-        
-    }//GEN-LAST:event_jb_simularMouseClicked
-
+    }
+    
     private void jmi_simularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_simularActionPerformed
         try{
             ae.cargarArchivo();
@@ -260,9 +291,12 @@ public class Main extends javax.swing.JFrame {
             jd_simulacion.setVisible(true);
         }catch(Exception e){
             
-        }
-        
+        }        
     }//GEN-LAST:event_jmi_simularActionPerformed
+
+    private void jmi_tablaPosicionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_tablaPosicionesActionPerformed
+        
+    }//GEN-LAST:event_jmi_tablaPosicionesActionPerformed
     
     /**
      * @param args the command line arguments
@@ -300,6 +334,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
