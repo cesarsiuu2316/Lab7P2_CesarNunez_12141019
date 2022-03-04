@@ -5,15 +5,24 @@
  */
 package lab7p2_cesarnunez_12141019;
 
+import java.io.File;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 
 public class Main extends javax.swing.JFrame {
 
-    private AdministrarEquipo ae = new AdministrarEquipo("./equipos.txt");
+    private AdministrarEquipo ae = new AdministrarEquipo();
     
     public Main() {
         initComponents();
+        jmi_crear.setEnabled(false);
+        jmi_modificar.setEnabled(false);
+        jmi_eliminar.setEnabled(false);
+        jmi_simular.setEnabled(false);
+        jmi_tablaPosiciones.setEnabled(false);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -25,6 +34,13 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jd_simulacion = new javax.swing.JDialog();
+        jcb_equipo2 = new javax.swing.JComboBox<>();
+        jcb_equipo1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jb_simular = new javax.swing.JButton();
+        jl_golesEquipo1 = new javax.swing.JLabel();
+        jl_golesEquipo2 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -36,6 +52,67 @@ public class Main extends javax.swing.JFrame {
         jm_partidos = new javax.swing.JMenu();
         jmi_simular = new javax.swing.JMenuItem();
         jmi_tablaPosiciones = new javax.swing.JMenuItem();
+
+        jLabel4.setText("vs");
+
+        jb_simular.setText("Simular");
+        jb_simular.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_simularMouseClicked(evt);
+            }
+        });
+
+        jl_golesEquipo1.setPreferredSize(new java.awt.Dimension(10, 10));
+
+        jl_golesEquipo2.setPreferredSize(new java.awt.Dimension(10, 10));
+
+        javax.swing.GroupLayout jd_simulacionLayout = new javax.swing.GroupLayout(jd_simulacion.getContentPane());
+        jd_simulacion.getContentPane().setLayout(jd_simulacionLayout);
+        jd_simulacionLayout.setHorizontalGroup(
+            jd_simulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_simulacionLayout.createSequentialGroup()
+                .addGap(148, 148, 148)
+                .addComponent(jl_golesEquipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jl_golesEquipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(124, 124, 124))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_simulacionLayout.createSequentialGroup()
+                .addContainerGap(239, Short.MAX_VALUE)
+                .addGroup(jd_simulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_simulacionLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(41, 41, 41)
+                        .addComponent(jcb_equipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_simulacionLayout.createSequentialGroup()
+                        .addComponent(jb_simular, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(230, 230, 230))))
+            .addGroup(jd_simulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jd_simulacionLayout.createSequentialGroup()
+                    .addGap(45, 45, 45)
+                    .addComponent(jcb_equipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(343, Short.MAX_VALUE)))
+        );
+        jd_simulacionLayout.setVerticalGroup(
+            jd_simulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_simulacionLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jd_simulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcb_equipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jd_simulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jl_golesEquipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jl_golesEquipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jb_simular, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
+            .addGroup(jd_simulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jd_simulacionLayout.createSequentialGroup()
+                    .addGap(39, 39, 39)
+                    .addComponent(jcb_equipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(144, Short.MAX_VALUE)))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -66,6 +143,11 @@ public class Main extends javax.swing.JFrame {
         jm_equipo.add(jmi_eliminar);
 
         jmi_cargar.setText("Cargar Archivo");
+        jmi_cargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_cargarActionPerformed(evt);
+            }
+        });
         jm_equipo.add(jmi_cargar);
 
         jMenuBar1.add(jm_equipo);
@@ -73,6 +155,11 @@ public class Main extends javax.swing.JFrame {
         jm_partidos.setText("Partidos");
 
         jmi_simular.setText("Simular");
+        jmi_simular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_simularActionPerformed(evt);
+            }
+        });
         jm_partidos.add(jmi_simular);
 
         jmi_tablaPosiciones.setText("jMenuItem1");
@@ -96,6 +183,44 @@ public class Main extends javax.swing.JFrame {
         }        
     }//GEN-LAST:event_jmi_crearActionPerformed
 
+    private void jmi_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_cargarActionPerformed
+        try{
+            ae = new AdministrarEquipo("./equipos.txt");
+            JOptionPane.showMessageDialog(null, "El archivo se cargó con éxito.");
+            jmi_crear.setEnabled(true);
+            jmi_modificar.setEnabled(true);
+            jmi_eliminar.setEnabled(true);
+            jmi_simular.setEnabled(true);
+            jmi_tablaPosiciones.setEnabled(true);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error, no se pudo cargar al archivo!");
+        }        
+    }//GEN-LAST:event_jmi_cargarActionPerformed
+
+    private void jb_simularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_simularMouseClicked
+
+        try{
+            if(jcb_equipo1.getSelectedIndex() >= 0 && jcb_equipo2.getSelectedIndex() >= 0){
+                
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error, no se pudo simular un resultado!");
+        }
+        
+        
+    }//GEN-LAST:event_jb_simularMouseClicked
+
+    private void jmi_simularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_simularActionPerformed
+        DefaultComboBoxModel m = (DefaultComboBoxModel) jcb_equipo1.getModel();
+        for (Equipo equipo : ae.getEquipos()) {
+            m.addElement(equipo);
+        }
+        jcb_equipo1.setModel(m);
+        jcb_equipo2.setModel(m);
+        jd_simulacion.pack();
+        jd_simulacion.setVisible(true);
+    }//GEN-LAST:event_jmi_simularActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -134,7 +259,14 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton jb_simular;
+    private javax.swing.JComboBox<String> jcb_equipo1;
+    private javax.swing.JComboBox<String> jcb_equipo2;
+    private javax.swing.JDialog jd_simulacion;
+    private javax.swing.JLabel jl_golesEquipo1;
+    private javax.swing.JLabel jl_golesEquipo2;
     private javax.swing.JMenu jm_equipo;
     private javax.swing.JMenu jm_partidos;
     private javax.swing.JMenuItem jmi_cargar;

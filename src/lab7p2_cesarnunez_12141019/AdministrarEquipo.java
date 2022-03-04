@@ -13,7 +13,7 @@ public class AdministrarEquipo {
     ArrayList<Equipo> equipos = new ArrayList();
     File file = null;
 
-    public AdministrarEquipo(String path) {
+    public AdministrarEquipo(String path) {        
         file = new File(path);
     }
 
@@ -55,8 +55,7 @@ public class AdministrarEquipo {
                 bw.write(equipo.getGolesFavor() + ",");
                 bw.write(equipo.getGolesContra() + ",");
                 bw.write(equipo.getDiferenciaGoles() + ",");
-                bw.write(equipo.getPts() + ",");
-                bw.newLine();
+                bw.write(equipo.getPts() + ","); 
             }            
             bw.flush();            
         }catch(Exception e){
@@ -68,19 +67,19 @@ public class AdministrarEquipo {
     
     public void cargarArchivo(){
         Scanner sc = null;
-        if(file.exists()){
-            equipos = new ArrayList();
+        equipos = new ArrayList();
+        if(file.exists()){            
             try{
                 sc = new Scanner(file);
                 sc.useDelimiter(",");
                 while(sc.hasNext()){
                     equipos.add(new Equipo(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt()));
-                }                
+                }   
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Error, no se pudo cargar el archivo!");
             }
+            sc.close();
         }
-        sc.close();
     }
     
 }

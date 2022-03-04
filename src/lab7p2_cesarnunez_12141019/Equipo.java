@@ -3,7 +3,7 @@ package lab7p2_cesarnunez_12141019;
 public class Equipo {
     
     private String nombre;
-    private int pGanados, pEmpatados, pPerdidos, golesFavor, golesContra, diferenciaGoles;
+    private int pGanados = 0, pEmpatados = 0, pPerdidos = 0, golesFavor = 0, golesContra = 0, diferenciaGoles = 0;
     private int pts = 0;
     private int pJugados = 0;
 
