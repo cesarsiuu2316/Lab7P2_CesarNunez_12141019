@@ -7,9 +7,9 @@ public class Equipo {
     private int pts = 0;
     private int pJugados = 0;
 
-    public Equipo(String nombre, int pJugados, int pGanados, int pEmpatados, int pPerdidos, int golesFavor, int golesContra, int diferenciaGoles) {
+    public Equipo(String nombre, int pJugados, int pGanados, int pEmpatados, int pPerdidos, int golesFavor, int golesContra, int diferenciaGoles, int pts) {
         this.nombre = nombre;
-        setpJugados(pJugados);
+        this.pJugados = pJugados;
         this.pGanados = pGanados;
         this.pEmpatados = pEmpatados;
         this.pPerdidos = pPerdidos;
@@ -89,11 +89,9 @@ public class Equipo {
         return pJugados;
     }
 
-    public void setpJugados() {
-        this.pJugados = this.pGanados + this.pEmpatados + this.pPerdidos;
+    public void setpJugados(int pJugados) {
+        this.pJugados = pJugados;
     }
-    
-    
 
     @Override
     public String toString() {

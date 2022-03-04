@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class AdministrarEquipo {
     
@@ -40,12 +42,10 @@ public class AdministrarEquipo {
     
     public void escribirArchivo() throws IOException{
         FileWriter fw = null;
-        BufferedWriter bw = null;
-        
+        BufferedWriter bw = null;        
         try{
             fw = new FileWriter(file, false);
-            bw = new BufferedWriter(fw);
-            
+            bw = new BufferedWriter(fw);            
             for (Equipo equipo : equipos) {
                 bw.write(equipo.getNombre() + ",");
                 bw.write(equipo.getpJugados() + ",");
@@ -56,17 +56,30 @@ public class AdministrarEquipo {
                 bw.write(equipo.getGolesContra() + ",");
                 bw.write(equipo.getDiferenciaGoles() + ",");
                 bw.write(equipo.getPts() + ",");
-            }
+            }            
+            bw.flush();            
         }catch(Exception e){
-            
-        }
-        
+            JOptionPane.showMessageDialog(null, "Error, no se pudo escribir al archivo!");
+        }        
         fw.close();
         bw.close();
     }
     
     public void cargarArchivo(){
-        
+        Scanner sc = null;
+        if(file.exists()){
+            equipos = new ArrayList();
+            try{
+                sc = new Scanner(file);
+                sc.useDelimiter(",");
+                while(sc.hasNext()){
+                    equipos.add(new Equipo(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt()));
+                }                
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Error, no se pudo cargar el archivo!");
+            }
+        }
+        sc.close();
     }
     
 }
