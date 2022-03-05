@@ -6,6 +6,7 @@
 package lab7p2_cesarnunez_12141019;
 
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -127,7 +128,15 @@ public class Main extends javax.swing.JFrame {
             new String [] {
                 "Equipo", "PJ", "PG", "PE", "PP", "GF", "GC", "DG", "Puntos"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jt_posiciones);
 
         javax.swing.GroupLayout jf_tablaLayout = new javax.swing.GroupLayout(jf_tabla.getContentPane());
@@ -153,7 +162,7 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 0, 255));
         jLabel2.setText("Torneo Local");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
 
         jLabel1.setBackground(new java.awt.Color(153, 204, 255));
         jLabel1.setOpaque(true);
@@ -170,9 +179,19 @@ public class Main extends javax.swing.JFrame {
         jm_equipo.add(jmi_crear);
 
         jmi_modificar.setText("Modificar");
+        jmi_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_modificarActionPerformed(evt);
+            }
+        });
         jm_equipo.add(jmi_modificar);
 
         jmi_eliminar.setText("Eliminar");
+        jmi_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_eliminarActionPerformed(evt);
+            }
+        });
         jm_equipo.add(jmi_eliminar);
 
         jmi_cargar.setText("Cargar Archivo");
@@ -227,12 +246,27 @@ public class Main extends javax.swing.JFrame {
         try{
             ae.cargarArchivo();
             ae.setEquipo(new Equipo(nombre));
+            // ordenarEquipos();
             ae.escribirArchivo();            
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error, no se pudo crear el equipo!");
         }        
     }//GEN-LAST:event_jmi_crearActionPerformed
 
+    private void ordenarEquipos(){ // selection sort
+        int min = 0;
+        int x = 0;
+        int y = 0;
+        ae.cargarArchivo();
+        ArrayList<Equipo> n = ae.getEquipos();
+        for (int i = 0; i < n.size(); i++) {
+            if(n.get(i).getPts() < min){
+                
+            }
+            
+        }
+    }
+    
     private void jmi_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_cargarActionPerformed
         try{
             ae = new AdministrarEquipo("./equipos.txt");
@@ -330,6 +364,43 @@ public class Main extends javax.swing.JFrame {
         jf_tabla.setVisible(true);
         jf_tabla.setLocationRelativeTo(this);
     }//GEN-LAST:event_jmi_tablaPosicionesActionPerformed
+
+    private void jmi_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_modificarActionPerformed
+        try{
+            ae.cargarArchivo();
+            String s = "";
+            int i = 0;
+            for (Equipo equipo : ae.getEquipos()) {
+                s += i + ") " + equipo.toString() + "\n";
+                i++;
+            }
+            int p = Integer.parseInt(JOptionPane.showInputDialog(s + "Ingrese la posición que desea modificar: "));
+            String nombre = JOptionPane.showInputDialog("Nuevo nombre del equipo: ");
+            ae.getEquipos().get(p).setNombre(nombre);
+            ae.escribirArchivo();            
+            JOptionPane.showMessageDialog(null, "Se modificó con éxito!");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error, no se pudo modificar!");
+        }
+    }//GEN-LAST:event_jmi_modificarActionPerformed
+
+    private void jmi_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_eliminarActionPerformed
+        try{
+            ae.cargarArchivo();
+            String s = "";
+            int i = 0;
+            for (Equipo equipo : ae.getEquipos()) {
+                s += i + ") " + equipo.toString() + "\n";
+                i++;
+            }
+            int p = Integer.parseInt(JOptionPane.showInputDialog(s + "Ingrese la posición que desea Eliminar: "));
+            ae.getEquipos().remove(p);
+            ae.escribirArchivo();            
+            JOptionPane.showMessageDialog(null, "Se eliminó el equipo con éxito!");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error, no se pudo eliminar!");
+        }
+    }//GEN-LAST:event_jmi_eliminarActionPerformed
     
     /**
      * @param args the command line arguments
